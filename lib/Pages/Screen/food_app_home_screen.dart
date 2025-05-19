@@ -102,7 +102,7 @@ class _FoodAppHomeScreenState extends State<FoodAppHomeScreen> {
               return Padding(
                 padding: EdgeInsets.only(left: index == 0 ? 15 : 0, right: 15),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => handelCategoryTap(category.name),
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 18, vertical: 10),
                     decoration: BoxDecoration(
@@ -151,6 +151,14 @@ class _FoodAppHomeScreenState extends State<FoodAppHomeScreen> {
         );
       },
     );
+  }
+
+  void handelCategoryTap(String category) {
+    if (selectedCategory == category) return;
+    setState(() {
+      selectedCategory = category;
+      // fetch food products
+    });
   }
 
   Container appBanners() {
