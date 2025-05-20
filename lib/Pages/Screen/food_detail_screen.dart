@@ -11,6 +11,7 @@ class FoodDetailScreen extends StatefulWidget {
 }
 
 class _FoodDetailScreenState extends State<FoodDetailScreen> {
+  int quantity = 1;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -64,9 +65,43 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     child: Container(
                       height: 45,
                       width: 120,
-                      decoration: BoxDecoration(color: red),
+                      decoration: BoxDecoration(
+                        color: red,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap:
+                                  () => setState(() {
+                                    quantity = quantity > 1 ? quantity - 1 : 1;
+                                  }),
+                              child: Icon(Icons.remove, color: Colors.white),
+                            ),
+                            SizedBox(width: 15),
+                            Text(
+                              quantity.toString(),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
+                            ),
+                            SizedBox(width: 15),
+                            GestureDetector(
+                              onTap:
+                                  () => setState(() {
+                                    quantity++;
+                                  }),
+                              child: Icon(Icons.add, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
