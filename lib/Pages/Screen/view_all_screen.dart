@@ -45,6 +45,7 @@ class _ViewAllProductScreenState extends State<ViewAllProductScreen> {
       appBar: AppBar(
         title: Text("All Products"),
         backgroundColor: Colors.blue[50],
+        forceMaterialTransparency: true,
         centerTitle: true,
       ),
       body:
