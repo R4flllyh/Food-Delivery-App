@@ -182,12 +182,40 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       fontWeight: FontWeight.bold,
                       color: red,
                     ),
+                    lessStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: red,
+                    ),
                   ),
+                  SizedBox(height: 100),
                 ],
               ),
             ),
           ),
         ],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        label: MaterialButton(
+          onPressed: () {},
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+          height: 65,
+          color: red,
+          minWidth: 350,
+          child: Text(
+            "Add to cart",
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.white,
+              letterSpacing: 1.3,
+            ),
+          ),
+        ),
       ),
     );
   }
