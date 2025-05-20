@@ -147,13 +147,43 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ],
                   ),
                   SizedBox(height: 35),
-                  Row(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      foodInfo(
+                        "assets/food-delivery/icon/star.png",
+                        widget.product.rate.toString(),
+                      ),
+                      foodInfo(
+                        "assets/food-delivery/icon/fire.png",
+                        "${widget.product.kcal.toString()} Kcal",
+                      ),
+                      foodInfo(
+                        "assets/food-delivery/icon/time.png",
+                        "${widget.product.time.toString()}",
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 25),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Row foodInfo(image, value) {
+    return Row(
+      children: [
+        Image.asset(image, width: 25),
+        SizedBox(width: 10),
+        Text(
+          value,
+          style: TextStyle(fontWeight: FontWeight.w500, color: Colors.black),
+        ),
+      ],
     );
   }
 
