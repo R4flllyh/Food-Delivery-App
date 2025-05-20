@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/Pages/Screen/food_detail_screen.dart';
 import 'package:food_delivery/core/models/product_model.dart';
 import 'package:food_delivery/core/utils/consts.dart';
 
@@ -17,6 +18,14 @@ class _ProductsItemsDisplayState extends State<ProductsItemsDisplay> {
     return GestureDetector(
       onTap: () {
         // Handle item tap
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(seconds: 1),
+            pageBuilder:
+                (_, __, ___) => FoodDetailScreen(product: widget.foodModel),
+          ),
+        );
       },
       child: Stack(
         alignment: Alignment.bottomCenter,
@@ -61,11 +70,14 @@ class _ProductsItemsDisplayState extends State<ProductsItemsDisplay> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network(
-                  widget.foodModel.imageCard,
-                  height: 140,
-                  width: 150,
-                  fit: BoxFit.fill,
+                Hero(
+                  tag: widget.foodModel.imageCard,
+                  child: Image.network(
+                    widget.foodModel.imageCard,
+                    height: 140,
+                    width: 150,
+                    fit: BoxFit.fill,
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 15),
