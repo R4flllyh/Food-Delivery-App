@@ -126,6 +126,24 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                           ),
                         ],
                       ),
+                      RichText(
+                        text: TextSpan(
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                          children: [
+                            TextSpan(
+                              text: "\$",
+                              style: TextStyle(color: red, fontSize: 14),
+                            ),
+                            TextSpan(
+                              text: "${widget.product.price}",
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ],
