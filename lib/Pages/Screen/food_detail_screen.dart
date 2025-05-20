@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/models/product_model.dart';
 import 'package:food_delivery/core/utils/consts.dart';
+import 'package:readmore/readmore.dart';
 
 class FoodDetailScreen extends StatefulWidget {
   final FoodModel product;
@@ -165,6 +166,23 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ],
                   ),
                   SizedBox(height: 25),
+                  ReadMoreText(
+                    desc,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w300,
+                      height: 1.5,
+                      color: Colors.black,
+                    ),
+                    trimLength: 110,
+                    trimCollapsedText: "Read more",
+                    trimExpandedText: "Read less",
+                    colorClickableText: red,
+                    moreStyle: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: red,
+                    ),
+                  ),
                 ],
               ),
             ),
