@@ -146,6 +146,8 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 35),
+                  Row(),
                 ],
               ),
             ),
