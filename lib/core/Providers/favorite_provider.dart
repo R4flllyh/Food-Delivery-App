@@ -25,9 +25,11 @@ class FavoriteProvider extends ChangeNotifier {
     if (_favoriteIds.contains(productId)) {
       // Remove from favorites
       _favoriteIds.remove(productId);
+      await _removeFavorite(productId);
     } else {
       // Add to favorites
       _favoriteIds.add(productId);
+      await _addFavorite(productId);
     }
     notifyListeners();
   }
@@ -38,13 +40,46 @@ class FavoriteProvider extends ChangeNotifier {
   }
 
   // Add favorite to supabase
-  Future<void> addFavorite(String productId) async {
+  Future<void> _addFavorite(String productId) async {
     if (userId == null) return;
-    try{
+    try {
+      // check in database
       await _supabaseClient.from("favorites").insert({
         "user_id": userId,
         "product_id": productId,
       });
+    } catch (e) {
+      print("Error adding favorite: $e");
     }
+  }
+
+  // Remove favorite from supabase database
+  Future<void> _removeFavorite(String productId) async {
+    if (userId == null) return;
+    try {
+      // check in database
+      await _supabaseClient.from("favorites").delete().match({
+        "user_id": userId!,
+        "product_id": productId,
+      });
+    } catch (e) {
+      print("Error adding favorite: $e");
+    }
+  }
+
+  // Load favorites from supabase
+  Future<void> loadFavorites() async {
+    if (userId == null) return;
+    try {
+      final data = await _supabaseClient
+          .from("favorites")
+          .select("product_id")
+          .eq("user_id", userId!);
+      _favoriteIds =
+          data.map<String>((row) => row['product_id'] as String).toList();
+    } catch (e) {
+      print("Error loading favorites: $e");
+    }
+    notifyListeners();
   }
 }
