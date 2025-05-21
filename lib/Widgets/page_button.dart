@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/core/utils/consts.dart';
 
 class PageButton extends StatelessWidget {
   final String buttonText;
@@ -8,7 +9,7 @@ class PageButton extends StatelessWidget {
     super.key,
     required this.buttonText,
     required this.onTap,
-    this.color = Colors.blueAccent,
+    this.color = red,
   });
 
   @override

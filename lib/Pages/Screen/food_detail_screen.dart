@@ -34,7 +34,7 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
           ),
           Container(
             width: size.width,
-            height: size.height * 0.75,
+            height: size.height * 0.70,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -166,6 +166,19 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                     ],
                   ),
                   SizedBox(height: 25),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Description",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5),
                   ReadMoreText(
                     desc,
                     style: TextStyle(
@@ -194,26 +207,57 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
           ),
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        label: MaterialButton(
-          onPressed: () {},
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            bottom: 20,
+            left: 25,
+            right: 25,
+            top: 10,
           ),
-          height: 65,
-          color: red,
-          minWidth: 350,
-          child: Text(
-            "Add to cart",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.white,
-              letterSpacing: 1.3,
-            ),
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Add to cart button
+              Expanded(
+                child: MaterialButton(
+                  onPressed: () {
+                    // Add to cart logic here
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  height: 65,
+                  color: red,
+                  child: Text(
+                    "Add to cart",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      letterSpacing: 1.3,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: 16),
+              // Favorite button
+              Container(
+                height: 65,
+                width: 65,
+                child: MaterialButton(
+                  onPressed: () {
+                    // Favorite logic here
+                  },
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  color: red,
+                  child: Icon(Icons.favorite, color: Colors.white),
+                ),
+              ),
+            ],
           ),
         ),
       ),

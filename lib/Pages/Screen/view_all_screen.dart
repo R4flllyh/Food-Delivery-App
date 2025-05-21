@@ -41,9 +41,16 @@ class _ViewAllProductScreenState extends State<ViewAllProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("All Products"),
+        title: Text(
+          "All Products",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1,
+          ),
+        ),
         backgroundColor: Colors.blue[50],
         forceMaterialTransparency: true,
         centerTitle: true,
