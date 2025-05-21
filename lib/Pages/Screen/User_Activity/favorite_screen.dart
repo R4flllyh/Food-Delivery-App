@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/core/models/on_bording_model.dart';
+import 'package:food_delivery/core/models/product_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
@@ -12,9 +13,9 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  final userId = supabase.auth.currentUser?.id;
   @override
   Widget build(BuildContext context) {
+    final userId = supabase.auth.currentUser?.id;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -31,10 +32,132 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                     .stream(primaryKey: ['id'])
                     .eq("user_id", userId)
                     .map((data) => data.cast<Map<String, dynamic>>()),
-                builder: (context, index) {
-                  return SizedBox();
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  final favorites = snapshot.data!;
+                  if (favorites.isEmpty) {
+                    return Center(child: Text("No favorites found"));
+                  }
+                  return FutureBuilder(
+                    future: _fetchFavoriteItems(favorites),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      final favoriteItems = snapshot.data!;
+                      if (favoriteItems.isEmpty) {
+                        return Center(child: Text("No favorites found"));
+                      }
+                      return ListView.builder(
+                        itemCount: favoriteItems.length,
+                        itemBuilder: (context, index) {
+                          final FoodModel items = favoriteItems[index];
+                          return Stack(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 15,
+                                  vertical: 5,
+                                ),
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 110,
+                                        height: 90,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          image: DecorationImage(
+                                            image: NetworkImage(
+                                              items.imageCard,
+                                            ),
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                right: 20,
+                                              ),
+                                              child: Text(
+                                                items.name,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 17,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(items.category),
+                                            Text(
+                                              "\$${items.price}.00",
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.pink,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                child: GestureDetector(
+                                  child: Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                    size: 25,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                  );
                 },
               ),
     );
+  }
+
+  Future<List<FoodModel>> _fetchFavoriteItems(
+    List<Map<String, dynamic>> favorites,
+  ) async {
+    final List<String> productNames =
+        favorites.map((fav) => fav['product_id'].toString()).toList();
+    if (productNames.isEmpty) return [];
+
+    try {
+      final response = await supabase
+          .from("food_product")
+          .select()
+          .inFilter('name', productNames);
+      if (response.isEmpty) {
+        return [];
+      }
+      return response.map((data) => FoodModel.fromJson(data)).toList();
+    } catch (e) {
+      debugPrint("Error fetching favorite items: $e");
+      return [];
+    }
   }
 }
