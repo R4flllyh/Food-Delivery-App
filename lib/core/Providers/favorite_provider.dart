@@ -40,5 +40,11 @@ class FavoriteProvider extends ChangeNotifier {
   // Add favorite to supabase
   Future<void> addFavorite(String productId) async {
     if (userId == null) return;
+    try{
+      await _supabaseClient.from("favorites").insert({
+        "user_id": userId,
+        "product_id": productId,
+      });
+    }
   }
 }
