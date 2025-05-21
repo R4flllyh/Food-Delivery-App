@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/Pages/Auth/login_screen.dart';
 import 'package:food_delivery/Pages/Screen/app_main_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,13 +20,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: AuthCheck(),
+    // Initialize the riverpod_flutter
+    return ProviderScope(
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: AuthCheck()),
     );
   }
 }
