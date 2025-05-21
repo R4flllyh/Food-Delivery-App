@@ -38,5 +38,7 @@ class FavoriteProvider extends ChangeNotifier {
   }
 
   // Add favorite to supabase
-  Future<void> addFavorite(String productId) async {}
+  Future<void> addFavorite(String productId) async {
+    if (userId == null) return;
+  }
 }
