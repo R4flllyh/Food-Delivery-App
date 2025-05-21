@@ -38,6 +38,7 @@ dependencies:
   supabase_flutter: ^2.9.0
   iconsax: ^0.0.8
   readmore: ^3.0.0
+  flutter_riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:
