@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/core/Providers/favorite_provider.dart';
 import 'package:food_delivery/core/models/product_model.dart';
 import 'package:food_delivery/core/utils/consts.dart';
 import 'package:readmore/readmore.dart';
 
-class FoodDetailScreen extends StatefulWidget {
+class FoodDetailScreen extends ConsumerStatefulWidget {
   final FoodModel product;
   const FoodDetailScreen({super.key, required this.product});
 
   @override
-  State<FoodDetailScreen> createState() => _FoodDetailScreenState();
+  ConsumerState<FoodDetailScreen> createState() => _FoodDetailScreenState();
 }
 
-class _FoodDetailScreenState extends State<FoodDetailScreen> {
+class _FoodDetailScreenState extends ConsumerState<FoodDetailScreen> {
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final favoriteProv = ref.watch(favoriteProvider);
     return Scaffold(
       appBar: appbarParts(context),
       extendBodyBehindAppBar: true,
@@ -249,12 +252,19 @@ class _FoodDetailScreenState extends State<FoodDetailScreen> {
                 child: MaterialButton(
                   onPressed: () {
                     // Favorite logic here
+                    favoriteProv.toggleFavorite(widget.product.name);
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
                   color: red,
-                  child: Icon(Icons.favorite, color: Colors.white),
+                  child: Icon(
+                    favoriteProv.isExist(widget.product.name)
+                        ? Icons.favorite_rounded
+                        : Icons.favorite_outline_rounded,
+
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
