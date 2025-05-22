@@ -3,6 +3,7 @@ import 'package:food_delivery/Pages/Auth/login_screen.dart';
 import 'package:food_delivery/Service/auth_service.dart';
 import 'package:food_delivery/Widgets/page_button.dart';
 import 'package:food_delivery/Widgets/snack_bar.dart';
+import 'package:food_delivery/core/utils/consts.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -72,11 +73,24 @@ class _SignupScreenState extends State<SignupScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Go ahead and set up\nyour account",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30,
+                      RichText(
+                        text: TextSpan(
+                          text: "Go ahead and set up\nyour",
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: " Account",
+                              style: TextStyle(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: red,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       SizedBox(height: 10),
@@ -155,13 +169,41 @@ class _SignupScreenState extends State<SignupScreen> {
                       "Login here",
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.blueAccent,
+                        color: red,
                         fontWeight: FontWeight.bold,
                         letterSpacing: -1,
                       ),
                     ),
                   ),
                 ],
+              ),
+              SizedBox(height: 20),
+              Container(
+                height: 50,
+                width: double.maxFinite,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color.fromARGB(255, 230, 230, 230),
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/search.png', // pastikan kamu punya icon Google di assets
+                      height: 24,
+                    ),
+                    SizedBox(width: 10),
+                    Text(
+                      "Continue with Google",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
