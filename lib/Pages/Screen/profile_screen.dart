@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_delivery/Service/auth_service.dart';
 import 'package:food_delivery/core/Providers/favorite_provider.dart';
 
-class ProfileScreen extends ConsumerWidget {
-  ProfileScreen({super.key});
+AuthService authService = AuthService();
 
-  AuthService authService = AuthService();
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
