@@ -14,6 +14,7 @@ class FavoriteProvider extends ChangeNotifier {
   String? get userId => _supabaseClient.auth.currentUser?.id;
   FavoriteProvider() {
     // Load the favorite providers
+    loadFavorites();
   }
   void reset() {
     _favoriteIds = [];

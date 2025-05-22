@@ -7,11 +7,14 @@ import 'package:food_delivery/core/utils/consts.dart';
 
 class ProductsItemsDisplay extends ConsumerWidget {
   final FoodModel foodModel;
+
   const ProductsItemsDisplay({super.key, required this.foodModel});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final provider = ref.watch(favoriteProvider);
+    // print(provider);
+    // print(provider.isExist(foodModel.name));
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
