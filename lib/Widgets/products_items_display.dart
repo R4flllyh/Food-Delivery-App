@@ -80,7 +80,7 @@ class ProductsItemsDisplay extends ConsumerWidget {
                   tag: foodModel.imageCard,
                   child: Image.network(
                     foodModel.imageCard,
-                    height: 140,
+                    height: 130,
                     width: 150,
                     fit: BoxFit.fill,
                   ),

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:food_delivery/core/Providers/favorite_provider.dart';
 import 'package:food_delivery/core/models/on_bording_model.dart';
 import 'package:food_delivery/core/models/product_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final supabase = Supabase.instance.client;
 
-class FavoriteScreen extends StatefulWidget {
+class FavoriteScreen extends ConsumerStatefulWidget {
   const FavoriteScreen({super.key});
 
   @override
-  State<FavoriteScreen> createState() => _FavoriteScreenState();
+  ConsumerState<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> {
+class _FavoriteScreenState extends ConsumerState<FavoriteScreen> {
   @override
   Widget build(BuildContext context) {
     final userId = supabase.auth.currentUser?.id;
+    final provider = ref.watch(favoriteProvider);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -80,7 +83,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                             image: NetworkImage(
                                               items.imageCard,
                                             ),
-                                            fit: BoxFit.cover,
+                                            fit: BoxFit.contain,
                                           ),
                                         ),
                                       ),
@@ -120,7 +123,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 ),
                               ),
                               Positioned(
+                                top: 50,
+                                right: 35,
                                 child: GestureDetector(
+                                  onTap: () {
+                                    provider.toggleFavorite(items.name);
+                                  },
                                   child: Icon(
                                     Icons.delete,
                                     color: Colors.red,
